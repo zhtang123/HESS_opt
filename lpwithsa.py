@@ -3,6 +3,12 @@ import random
 import math
 import time
 
+# Parameters for simulated annealing
+initial_temp = 5000000
+cooling_rate = 0.99
+max_iter = 1000
+hess_cost = 1000000
+
 # Function to read data from the generated_data.txt file
 def read_data(filename):
     with open(filename, 'r') as file:
@@ -104,8 +110,6 @@ def simulated_annealing(initial_capacity, initial_temp, cooling_rate, max_iter):
     added_cost = 0
     start_time = time.time()
 
-    hess_cost = 1000000
-
     with open("lplog3.txt", "w") as log_file, open("lpresult2.txt", "w") as result_file:
         for iteration in range(max_iter):
             # Create a new candidate solution by modifying the current solution
@@ -147,8 +151,8 @@ def simulated_annealing(initial_capacity, initial_temp, cooling_rate, max_iter):
             log_file.write(log_entry)
             print(log_entry)
 
-            if iteration >= 500:
-                break
+            # if iteration >= 500:
+            #     break
         
         # Write the best solution to the result file
         result_entry = f"Best Capacity: {best_capacity}\nBest Cost: {best_cost}\n"
@@ -168,10 +172,6 @@ def simulated_annealing(initial_capacity, initial_temp, cooling_rate, max_iter):
         result_file.write(time_entry)
         print(time_entry)
 
-# Parameters for simulated annealing
-initial_temp = 5000000
-cooling_rate = 0.99
-max_iter = 1000
 
 # Run simulated annealing
 best_capacity, best_cost = simulated_annealing(initial_capacity, initial_temp, cooling_rate, max_iter)
